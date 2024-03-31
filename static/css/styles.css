@@ -1,0 +1,215 @@
+.index-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    position: fixed; /* headerを固定位置に設定 */
+    top: 0; /* ビューポートの最上部からの距離 */
+    left: 0; /* ビューポートの左端からの距離 */
+    width: 100%; /* headerの幅をビューポートの幅に合わせる */
+    background-color: #fff; /* 背景色を設定 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 下側に影を付けて立体感を出す */
+}
+
+header h1 {
+    font-size: 2.5rem; /* タイトルのフォントサイズ */
+    color: #333; /* タイトルの色 */
+    text-align: center; /* 中央揃え */
+    margin-top: 20px; /* 上部の余白 */
+    margin-bottom: 40px; /* 下部の余白 */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* テキストの影を追加 */
+}
+
+body {
+    padding-top: 200px; /* headerの高さに応じて調整 */
+    position: relative;
+    font-family: Arial, sans-serif;
+    height: 100vh; /* ビューポートの高さに合わせて */
+    margin-top: 0; /* 必要に応じて調整 */
+}
+
+body::before {
+    content: '';
+    position: fixed; /* これを 'absolute' から 'fixed' に変更して背景を固定 */
+    top: 200px; /* headerの高さに応じて調整。headerが60pxの高さの場合 */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../images/study-background.png');
+    background-size: 1024px 1024px; /* 画像をビューポートにフィットさせる */
+    background-repeat: no-repeat; /* 背景画像を繰り返さない */
+    background-position: top center; /* 背景画像の位置を上中央に設定 */
+    opacity: 0.03; /* 不透明度を調整 */
+    z-index: -1; /* 内容が背景より前に表示されるように */
+}
+
+
+.center-container {
+    text-align: center;
+}
+
+.center-container h1 {
+    margin-bottom: 20px;
+}
+
+.center-container button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.center-container button:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* 内容が読みやすいように軽い背景色を設定 */
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative; /* 擬似要素とのスタッキングコンテキストを確立 */
+}
+
+/* その他のスタイル */
+
+.question, .answers {
+    margin-bottom: 15px;
+}
+
+.question {
+    font-weight: bold;
+}
+
+.answers label {
+    display: block; /* 回答を選択しやすくする */
+}
+
+button {
+    background-color: #007BFF; /* Bootstrapのプライマリーブルー */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 70%;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#backToTop {
+    position: fixed;
+    width: 10%;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #00ff6a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    opacity: 0.3;
+}
+
+#backToTop:hover {
+    opacity: 1;
+}
+
+#result {
+    /* position: relative; /* 必要に応じて */
+    /* padding: 20px; */
+    padding: 10px 0; /* テキストとプログレスバー間のスペース */
+    background-color: #f8f9fa; /* 明るい背景色 */
+    border: 1px solid #ddd; /* 境界線 */
+    border-radius: 5px; /* 角丸 */
+    margin-bottom: 30px; /* 下部のマージン */
+    text-align: center; /* テキストを中央揃え */
+    font-size: 20px; /* フォントサイズを大きく */
+    color: #ff0000; /* 文字色 */
+}
+
+.result-high {
+    color: green;
+}
+
+.result-low {
+    color: red;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.result {
+    animation: fadeIn 2s;
+}
+
+#progressContainer {
+    position: relative; /* 目盛りの配置の基点とする */
+    width: 100%;
+    background-color: #d9d9d9;
+    height: 15px;
+    border-radius: 5px;
+    margin-top: 0px;
+}
+
+#progressBar {
+    width: 0%; /* 初期値 */
+    min-height: 0px; /* 適切な最小高さに設定 */
+    height: 100%;
+    background: linear-gradient(to bottom, #ffffff, #7bd7fe, #f4ff5c); /* グラデーションの色を設定 */
+    border-radius: 5px;
+    transition: width 0.01s ease-in-out; /* スムーズな幅の変更 */
+}
+
+.progress-mark {
+    position: absolute; /* progressContainerに対して絶対位置 */
+    top: -0px; /* プログレスバーの上に配置 */
+    transform: translateX(-50%); /* 中心を基点に配置を調整 */
+    font-size: 14px; /* フォントサイズ */
+    /*display: none; /* 初期状態では非表示 */
+}
+
+.progress-tick {
+    position: absolute;
+    width: 2px; /* 目盛りの幅 */
+    bottom: -10px; /* プログレスバーに重ねて配置 */
+    height: 100%; /* プログレスバーと同じ高さに */
+    border-radius: 5px; /* 目盛りの端に丸みを加える */
+    background: linear-gradient(to bottom, #5fff92, #7bd7fe, #ff0000); /* グラデーションの色を設定 */
+}
+
+.progress-mark:first-child {
+    left: 0;
+    transform: translateX(0%); /* 0%の位置をずらさずにそのまま表示 */
+}
+
+.progress-mark:last-child {
+    left: 100%;
+    transform: translateX(-100%); /* 100%の位置を左にずらして表示 */
+}
+
+#answerRate {
+    position: fixed; /* 要素を固定位置に配置 */
+    top: 20px; /* 上端から20pxの位置 */
+    right: 20px; /* 右端から20pxの位置 */
+    background-color: rgba(251, 251, 234, 0.9); /* 背景色（半透明） */
+    padding: 15px; /* 内側の余白 */
+    border-radius: 5px; /* 角の丸み */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5); /* 影を付ける */
+    z-index: 1000; /* 他の要素より前面に表示 */
+}

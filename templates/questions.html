@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>WEB試験問題</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="questions-page">
+    <header>
+        <h1>WEB試験問題</h1>
+
+
+
+        <div id="progressContainer">
+            <div id="progressBar"></div>
+            <div class="progress-mark" style="left: 0; transform: translateX(20%);">0%</div>
+            <div class="progress-mark" style="left: 50%;">50%</div>
+            <div class="progress-mark" style="left: 100%; transform: translateX(-120%);">100%</div>
+
+        <div id="result"></div>
+
+        </div>
+    </header>
+    <div id="answerRate"></div>
+
+    <div id="quiz-container"></div>
+    <button onclick="submitAnswers()">解答を終了</button>
+    <script src="/static/js/quiz.js"></script>
+    <button id="backToTop" onclick="scrollToTop()">TOPへ</button>
+</body>
+</html>
