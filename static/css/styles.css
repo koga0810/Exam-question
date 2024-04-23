@@ -18,8 +18,8 @@ header h1 {
     font-size: 2.5rem; /* タイトルのフォントサイズ */
     color: #333; /* タイトルの色 */
     text-align: center; /* 中央揃え */
-    margin-top: 20px; /* 上部の余白 */
-    margin-bottom: 40px; /* 下部の余白 */
+    margin-top: -20px; /* 上部の余白 */
+    margin-bottom: -20px; /* 下部の余白 */
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* テキストの影を追加 */
 }
 
@@ -96,20 +96,75 @@ body::before {
     display: block; /* 回答を選択しやすくする */
 }
 
-button {
+#start-question {
     background-color: #007BFF; /* Bootstrapのプライマリーブルー */
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 70%;
+    width: 80%;
+    padding: 30px; /* 内側の余白 */
     margin-top: 30px;
     margin-bottom: 15px;
 }
 
-button:hover {
-    background-color: #0056b3;
+#start-question:hover {
+    background-color: #ff000d;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+}
+
+#submit-button {
+    background-color: #007BFF; /* Bootstrapのプライマリーブルー */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#submit-button:hover {
+    background-color: #ff000d;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+}
+
+#confirmOk {
+    background-color: #ff000d; /* Bootstrapのプライマリーブルー */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#confirmOk:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+}
+
+#confirmCancel {
+    background-color: #007BFF; /* Bootstrapのプライマリーブルー */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#confirmCancel:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
 }
 
 #backToTop {
@@ -129,6 +184,8 @@ button:hover {
 
 #backToTop:hover {
     opacity: 1;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
 }
 
 #result {
@@ -215,4 +272,80 @@ button:hover {
     border-radius: 5px; /* 角の丸み */
     box-shadow: 0 2px 4px rgba(0,0,0,0.5); /* 影を付ける */
     z-index: 1000; /* 他の要素より前面に表示 */
+}
+
+/* モーダルの基本スタイル */
+.modal {
+    display: none; /* 初期状態では非表示 */
+    position: fixed; /* 画面上に固定 */
+    z-index: 1; /* 他の要素より前面に */
+    left: 0;
+    top: 0;
+    width: 100%; /* 幅全体 */
+    height: 100%; /* 高さ全体 */
+    overflow: auto; /* 内容がオーバーフローしたらスクロール */
+    background-color: rgba(0,0,0,0.4); /* 半透明の背景 */
+}
+
+/* モーダルコンテンツのスタイル */
+.modal-content {
+    background-color: #fefefe;
+    margin: 60% auto; /* 画面中央に配置 */
+    padding: 15px;
+    border: 1px solid #888;
+    width: 30%; /* コンテンツの幅 */
+}
+
+/* モーダルの基本スタイル */
+.modal2 {
+    display: none; /* 初期状態では非表示 */
+    position: fixed; /* 画面上に固定 */
+    z-index: 1; /* 他の要素より前面に */
+    left: 0;
+    top: 0;
+    width: 100%; /* 幅全体 */
+    height: 100%; /* 高さ全体 */
+    overflow: auto; /* 内容がオーバーフローしたらスクロール */
+    background-color: rgba(0,0,0,0.4); /* 半透明の背景 */
+}
+
+/* モーダルコンテンツのスタイル */
+.modal-content2 {
+    background-color: #fefefe;
+    margin: 50% auto; /* 画面中央に配置 */
+    padding: 15px;
+    border: 1px solid #888;
+    width: 30%; /* コンテンツの幅 */
+}
+
+#studentId {
+    color: #000000;
+    background-color: #fce4e4;
+    text-align: center; /* テキストを中央揃え */
+    padding: 12px 18px; /* 内側の余白 */
+    border-radius: 5px; /* 角丸の設定 */
+    border: 1.5px solid #000000; /* 枠線の色と太さ */
+    margin: 50px 0; /* 上下の余白 */
+}
+
+#studentIdDisplay {
+    color: #333; /* テキストの色 */
+    background-color: #f8f8f8; /* 背景色 */
+    padding: 8px 15px; /* 内側の余白 */
+    border-radius: 5px; /* 角丸の設定 */
+    border: 1px solid #ddd; /* 枠線の色と太さ */
+    font-weight: bold; /* フォントの太さ */
+    margin: 10px 0; /* 上下の余白 */
+    margin-left: 10px;
+    display: inline-block; /* 要素をインラインブロックとして表示 */
+}
+
+#download-pdf {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#printButton {
+    margin-top: 10px;
+    margin-left: 10px;
 }

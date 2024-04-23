@@ -4,17 +4,12 @@
     <meta charset="UTF-8">
     <title>WEB試験問題</title>
     <link rel="stylesheet" href="/static/css/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body class="questions-page">
     <header>
-
-        <button id="download-pdf">PDFで保存</button>
-        <button id="printButton">印刷する</button>
         <h1>WEB試験問題</h1>
 
-        <div id="studentIdDisplay"></div> <!-- 学生番号表示用のdivを追加 -->
+
 
         <div id="progressContainer">
             <div id="progressBar"></div>
@@ -26,24 +21,13 @@
 
         </div>
     </header>
-
-    <script>
-        // ページ読み込み時に学生番号を表示
-        document.addEventListener('DOMContentLoaded', () => {
-            const studentId = localStorage.getItem('studentId');
-            if (studentId) {
-                document.getElementById('studentIdDisplay').textContent = `学生番号: ${studentId}`;
-            }
-        });
-    </script>
-
     <div id="answerRate"></div>
 
     <div id="quiz-container"></div>
 
     <!-- カスタム確認ダイアログの構造 -->
-<div id="customConfirm" class="modal2">
-    <div class="modal-content2">
+<div id="customConfirm" class="modal">
+    <div class="modal-content">
         <p>解答を終了してもよろしいですか？</p>
         <button id="confirmOk">OK</button>
         <button id="confirmCancel">キャンセル</button>
@@ -54,13 +38,5 @@
 
     <script src="/static/js/quiz.js"></script>
     <button id="backToTop" onclick="scrollToTop()">TOPへ</button>
-
-    <script>
-        // 印刷ボタンにクリックイベントリスナーを設定
-        document.getElementById('printButton').addEventListener('click', function() {
-            window.print();  // ブラウザの印刷ダイアログを開く
-        });
-        </script>
-
 </body>
 </html>

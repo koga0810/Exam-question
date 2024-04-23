@@ -10,7 +10,21 @@
         <h1>WEB試験問題</h1>
         <h3>～ 出題数 50問 ～</h3>
         <div id="current-date"></div>
-        <button onclick="location.href='/questions'">開始</button>
+        <br>
+        <!-- 番号入力フォームを追加 -->
+        <form id="startForm">
+            <input type="text" id="studentId" name="studentId" pattern="\d{7}" required placeholder="学生番号（7桁）を入力">
+            <br>
+            <button type="button" id="start-question">開始</button>
+        </form>
+        <!-- カスタム確認ダイアログの構造 -->
+        <div id="customConfirm" class="modal">
+            <div class="modal-content">
+                <p>試験を開始してよろしいですか？</p>
+                <button id="confirmOk">OK</button>
+                <button id="confirmCancel">キャンセル</button>
+            </div>
+        </div>
     </div>
     <script src="static/js/main.js"></script>
 </body>

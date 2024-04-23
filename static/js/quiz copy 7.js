@@ -42,30 +42,43 @@ document.getElementById('download-pdf').addEventListener('click', function() {
     }
 });
 
-async function generatePDF() {
+function generatePDF() {
     const pdf = new window.jspdf.jsPDF();
-    let currentPosition = 0;
-    const viewportHeight = window.innerHeight;
-    const totalHeight = document.body.scrollHeight;
-    const scale = 2; // キャプチャの解像度を調整
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const scale = window.devicePixelRatio; // デバイスのピクセル比を考慮
+    const totalHeight = document.body.scrollHeight * scale; // スケールを考慮した全高
+    const totalPages = Math.ceil(totalHeight / (pageHeight * scale)); // スケールを考慮したページ数
 
-    while (currentPosition < totalHeight) {
-        await html2canvas(document.body, {
-            scrollY: currentPosition,
-            scale: scale,
-            windowHeight: viewportHeight,
-            windowWidth: document.documentElement.offsetWidth
+    let currentPage = 0;
+
+    function capturePageAndAdd(scrollY) {
+        html2canvas(document.body, {
+            scrollY: scrollY,
+            scale: scale, // html2canvasにデバイスのピクセル比を指定
+            windowHeight: pageHeight * scale, // スケールを考慮したキャプチャ高さ
+            windowWidth: document.documentElement.offsetWidth // オフセット幅を使用
         }).then(canvas => {
-            if (currentPosition !== 0) {
+            if (currentPage > 0) {
                 pdf.addPage();
             }
+            
             const imgData = canvas.toDataURL('image/png');
-            pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+            pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
+            currentPage++;
+
+            if (currentPage < totalPages) {
+                capturePageAndAdd(scrollY + pageHeight * scale); // 次のページのキャプチャ開始位置を更新
+            } else {
+                pdf.save("download.pdf");
+            }
         });
-        currentPosition += viewportHeight * scale;
     }
-    pdf.save("download.pdf");
+
+    capturePageAndAdd(0); // 最初のページのキャプチャを開始
 }
+
+
 
 // 解答率を更新する関数
 function updateAnswerRate(totalQuestions) {

@@ -1,4 +1,3 @@
-// 問題を取得して表示する関数
 function fetchQuestions() {
     fetch('/api/questions')
         .then(response => response.json())
@@ -27,61 +26,11 @@ function fetchQuestions() {
             updateAnswerRate(questions.length); // 解答率を更新
             updateProgressBarForAnswerRate(questions.length); // プログレスバーを更新
 
-            // プログレスバーに目盛りを追加
+            // プログレスバーに目盛りを追加（この部分を追記）
             addProgressTicks(questions.length);
         });
 }
 
-document.getElementById('download-pdf').addEventListener('click', function() {
-    // 確認メッセージを表示し、ユーザーの選択を取得
-    const isConfirmed = confirm("PDFを保存しますか？");
-
-    // ユーザーがOKを選択した場合のみPDFを生成
-    if (isConfirmed) {
-        generatePDF();
-    }
-});
-
-async function generatePDF() {
-    const pdf = new window.jspdf.jsPDF();
-    let currentPosition = 0;
-    const viewportHeight = window.innerHeight;
-    const totalHeight = document.body.scrollHeight;
-    const scale = 2; // キャプチャの解像度を調整
-
-    while (currentPosition < totalHeight) {
-        await html2canvas(document.body, {
-            scrollY: currentPosition,
-            scale: scale,
-            windowHeight: viewportHeight,
-            windowWidth: document.documentElement.offsetWidth
-        }).then(canvas => {
-            if (currentPosition !== 0) {
-                pdf.addPage();
-            }
-            const imgData = canvas.toDataURL('image/png');
-            pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
-        });
-        currentPosition += viewportHeight * scale;
-    }
-    pdf.save("download.pdf");
-}
-
-// 解答率を更新する関数
-function updateAnswerRate(totalQuestions) {
-    const answeredQuestions = new Set([...document.querySelectorAll('input[type="radio"]:checked')].map(input => input.name)).size;
-    document.getElementById('answerRate').textContent = `解答率：${answeredQuestions}/${totalQuestions} 問`;
-}
-
-// プログレスバーを更新する関数
-function updateProgressBarForAnswerRate(totalQuestions) {
-    const answeredQuestions = new Set([...document.querySelectorAll('input[type="radio"]:checked')].map(input => input.name)).size;
-    const answerRate = (answeredQuestions / totalQuestions) * 100;
-    const progressBar = document.getElementById('progressBar');
-    progressBar.style.width = `${answerRate}%`;
-}
-
-// プログレスバーに目盛りを追加する関数
 function addProgressTicks(totalQuestions) {
     const progressBarContainer = document.getElementById('progressContainer');
     // 既存の目盛りをクリア
@@ -100,7 +49,6 @@ function addProgressTicks(totalQuestions) {
     }
 }
 
-// 問題を提出する関数
 function submitAnswers() {
     const answers = {};
     document.querySelectorAll('input[type="radio"]:checked').forEach(input => {
@@ -150,9 +98,15 @@ function submitAnswers() {
     });
 }
 
-// ページの最上部にスクロールする関数
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function updateProgressBarForAnswerRate(totalQuestions) {
+    const answeredQuestions = new Set([...document.querySelectorAll('input[type="radio"]:checked')].map(input => input.name)).size;
+    const answerRate = (answeredQuestions / totalQuestions) * 100;
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = `${answerRate}%`;
 }
 
 function animateProgressBar(finalWidth) {
@@ -175,26 +129,33 @@ function animateProgressBar(finalWidth) {
     }, 30);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('submit-button').addEventListener('click', showCustomConfirm);
-});
+window.onload = function() {
+    // 以前の問題を読み込む処理など
+
+    // 「解答を終了」ボタンのクリックイベントにカスタム確認ダイアログを表示する関数を紐付け
+    document.getElementById('submit-button').addEventListener('click', function() {
+        showCustomConfirm();
+    });
+};
 
 function showCustomConfirm() {
     document.getElementById('customConfirm').style.display = 'block';
 }
 
+// 「OK」ボタンの処理
 document.getElementById('confirmOk').addEventListener('click', function() {
     document.getElementById('customConfirm').style.display = 'none';
-    submitAnswers();
+    submitAnswers(); // 解答送信の処理をここで実行
 });
 
+// 「キャンセル」ボタンの処理
 document.getElementById('confirmCancel').addEventListener('click', function() {
     document.getElementById('customConfirm').style.display = 'none';
 });
 
 function updateAnswerRate(totalQuestions) {
-const answeredQuestions = new Set([...document.querySelectorAll('input[type="radio"]:checked')].map(input => input.name)).size;
-document.getElementById('answerRate').textContent = `解答率：${answeredQuestions}/${totalQuestions} 問`;
+    const answeredQuestions = new Set([...document.querySelectorAll('input[type="radio"]:checked')].map(input => input.name)).size;
+    document.getElementById('answerRate').textContent = `解答率：${answeredQuestions}/${totalQuestions} 問`;
 }
 
 window.onload = fetchQuestions;
